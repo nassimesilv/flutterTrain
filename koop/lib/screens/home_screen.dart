@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SliverFixedExtentList(
               itemExtent: 50.0,
-              delegate: SliverChildBuilderDelegate(
+              delegate:  SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   return Container(
                     alignment: Alignment.center,
@@ -42,16 +42,23 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+class HorizontalCardViewer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
+}
+
 class FavoriteBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: getFavoritesCircleAvatar(),
-        ),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: getFavoritesCircleAvatar(),
       ),
     );
   }
@@ -67,6 +74,8 @@ class FavoriteCircleAvatar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5.0),
       padding: EdgeInsets.all(2.0),
+      height: 40.0,
+      width:40.0,
       decoration: BoxDecoration(
         color: Theme.of(context).accentColor,
         shape: BoxShape.circle,

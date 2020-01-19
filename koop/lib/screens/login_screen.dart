@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:koop/screens/sign_up_screen.dart';
+import 'package:koop/screens/home_screen.dart';
 import 'package:koop/utils/constants.dart';
 
 const TextStyle kButtonTextStyle = TextStyle(
@@ -14,91 +15,96 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 10,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Hero(
-                          tag: 'logo',
-                          child: Container(
-                            //TODO: Add Image here
-                            width: 50.0,
-                            height: 50.0,
-                            color: Colors.blue,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  flex: 10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Hero(
+                            tag: 'logo',
+                            child: Container(
+                              width: 100.0,
+                              height: 100.0,
+                              child: Image.asset('images/logoWhite.png'),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: kSizedBoxSize,
-                        ),
-                        Text('Koop',
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .primaryTextTheme
-                                  .title
-                                  .color,
-                              fontSize: 50.0,
-                              fontWeight: FontWeight.bold,
-                            ))
-                      ],
-                    ),
-                    SizedBox(height: kSizedBoxSize),
-                    LoginForm(),
-                    SizedBox(height: kSizedBoxSize),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                            child: Divider(
-                          thickness: 2.0,
-                        )),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text('OU'),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Expanded(
-                            child: Divider(
-                          thickness: 2.0,
-                        )),
-                      ],
-                    ),
-                    SizedBox(height: kSizedBoxSize),
-                    FacebookSignInButton(),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Pas de compte?'),
-                    FlatButton(
-                      padding: EdgeInsets.all(5.0),
-                      onPressed: () {
-                        Navigator.pushNamed(context, SignUpScreen.title);
-                      },
-                      child: Text(
-                        'Créer un compte',
-                        style: TextStyle(decoration: TextDecoration.underline),
+                          Text('Koop',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .title
+                                    .color,
+                                fontSize: 50.0,
+                                fontWeight: FontWeight.bold,
+                              ))
+                        ],
                       ),
-                    ),
-                  ],
+                      LoginForm(),
+                      SizedBox(height: kSizedBoxSize),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: Divider(
+                            thickness: 2.0,
+                          )),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Text('OU'),
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Expanded(
+                              child: Divider(
+                            thickness: 2.0,
+                          )),
+                        ],
+                      ),
+                      SizedBox(height: kSizedBoxSize),
+                      FacebookSignInButton(),
+                    ],
+                  ),
                 ),
-              )
-            ],
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Pas de compte?'),
+                      FlatButton(
+                        padding: EdgeInsets.all(5.0),
+                        onPressed: () {
+                          Navigator.pushNamed(context, SignUpScreen.title);
+                        },
+                        child: Text(
+                          'Créer un compte',
+                          style:
+                              TextStyle(decoration: TextDecoration.underline),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -175,8 +181,9 @@ class LoginFormState extends State<LoginForm> {
                 if (_formKey.currentState.saveAndValidate()) {
                   // _formKey.currentState.value store email and password
                   //TODO: Handle Auth request here on click
-                  _formKey.currentState.reset();
+                  // _formKey.currentState.reset();  
                 }
+                Navigator.pushReplacementNamed(context, HomeScreen.title);
               },
             ),
           ),

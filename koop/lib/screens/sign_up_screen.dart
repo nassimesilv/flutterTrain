@@ -8,36 +8,45 @@ class SignUpScreen extends StatelessWidget {
   static String title = 'sign_up_screen';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Hero(
-                        tag: 'logo',
-                        child: Container(
-                          //TODO: Add Image here
-                          width: 100.0,
-                          height: 100.0,
-                          color: Colors.blue,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Hero(
+                          tag: 'logo',
+                          child: Container(
+                            //TODO: Add Image here
+                            width: 150.0,
+                            height: 150.0,
+                            child: Image.asset('images/logoWhite.png'),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: kSizedBoxSize),
-                  SignUpForm(),
-                ],
-              ),
-            ],
+                      ],
+                    ),
+                    SizedBox(height: kSizedBoxSize),
+                    SignUpForm(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -69,7 +78,10 @@ class SignUpFormState extends State<SignUpForm> {
                   decoration: InputDecoration(labelText: 'Je suis un'),
                   attribute: 'Usertype',
                   leadingInput: true,
-                  validators: [FormBuilderValidators.required(errorText: 'Veuillez selectionner un type'), ],
+                  validators: [
+                    FormBuilderValidators.required(
+                        errorText: 'Veuillez selectionner un type'),
+                  ],
                   options: ['Barber', 'Client']
                       .map(
                           (userType) => FormBuilderFieldOption(value: userType))

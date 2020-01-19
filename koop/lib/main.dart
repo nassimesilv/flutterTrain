@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Koop',
       theme: themeData,
-      initialRoute: HomeScreen.title,
+      initialRoute: LoginScreen.title,
       routes: {
         LoginScreen.title: (context) => LoginScreen(),
         SignUpScreen.title: (context) => SignUpScreen(),
@@ -24,4 +24,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-ThemeData themeData = ThemeData.dark();
+ThemeData themeData = ThemeData.dark().copyWith(
+  accentColor: Color(0xFFD4AF37),
+);

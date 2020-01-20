@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/bottomNavBar.dart';
 import 'package:koop/components/circleAvatarBar.dart';
+import 'package:koop/components/horizontalSlider.dart';
 import 'package:koop/components/searchBar.dart';
 import 'package:koop/components/smallSlideItem.dart';
+import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/screens/cgu_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,12 +17,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  final PageController _pageController = PageController();
+  final PageController pageController = PageController();
 
   @override
   void dispose() {
     super.dispose();
-    _pageController.dispose();
+    pageController.dispose();
   }
 
   @override
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Container(
             child: PageView(
-              controller: _pageController,
+              controller: pageController,
               physics: BouncingScrollPhysics(),
               onPageChanged: (index) {
                 setState(() {
@@ -55,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedIndex: _selectedIndex,
             unselectedColor: Theme.of(context).accentColor,
             onItemSelected: (index) {
-              _pageController.jumpToPage(index);
+              pageController.jumpToPage(index);
             },
             selectedColor: Theme.of(context).accentColor,
             showElevation: false,
@@ -81,10 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomeScrollView extends StatelessWidget {
-  const HomeScrollView({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -131,34 +129,7 @@ List<HorizontalSlider> getHorizontalSliders() {
   return horizontalSliderList;
 }
 
-class HorizontalSlider extends StatelessWidget {
-  final String sliderTitle;
 
-  HorizontalSlider({@required this.sliderTitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          HorizontalSliderTitle(title: this.sliderTitle),
-          Container(
-            height: MediaQuery.of(context).size.height / 2.4,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: getSmallSlideItems('around'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 List<SmallSlideItem> getSmallSlideItems(String sliderType) {
   // slider type property is for example favorites, around, trending, ...
@@ -168,6 +139,7 @@ List<SmallSlideItem> getSmallSlideItems(String sliderType) {
   for (int i = 0; i < smallSlideItemLength; i++) {
     smallSlideItemList.add(
       SmallSlideItem(
+        barberId: i.toString(),
         distance: 2.5.toString(),
         address: '30B avenue du general sarrail, chalons en champagne',
         rating: '3.5',
@@ -177,40 +149,4 @@ List<SmallSlideItem> getSmallSlideItems(String sliderType) {
     );
   }
   return smallSlideItemList;
-}
-
-class HorizontalSliderTitle extends StatelessWidget {
-  final String title;
-  //TODO add route property to navigate to
-
-  HorizontalSliderTitle({@required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          this.title,
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        FlatButton(
-          child: Text(
-            "Tout voir",
-            style: TextStyle(
-//                      fontSize: 22,
-//                      fontWeight: FontWeight.w800,
-              color: Theme.of(context).accentColor,
-            ),
-          ),
-          onPressed: () {
-            //TODO Add navigation to favorite view
-          },
-        ),
-      ],
-    );
-  }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:koop/components/photoViewer.dart';
+import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/screens/cgu_screen.dart';
 import 'package:koop/screens/home_screen.dart';
 import 'package:koop/screens/login_screen.dart';
@@ -13,17 +15,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Koop',
       theme: themeData,
-      initialRoute: LoginScreen.title,
+      initialRoute: HomeScreen.title,
       routes: {
         LoginScreen.title: (context) => LoginScreen(),
         SignUpScreen.title: (context) => SignUpScreen(),
         CGUScreen.title: (context) => CGUScreen(),
         HomeScreen.title: (context) => HomeScreen(),
+        BarberProfileScreen.title: (context) => BarberProfileScreen(),
+        PhotoViewer.title: (context) => PhotoViewer(),
       },
     );
   }
 }
 
-ThemeData themeData = ThemeData.dark().copyWith(
+ThemeData themeData = ThemeData.light().copyWith(
   accentColor: Color(0xFFD4AF37),
+  primaryColor: Colors.white,
+  indicatorColor: Color(0xFFD4AF37),
+  primaryTextTheme: ThemeData.light().textTheme.copyWith(
+        title: TextStyle(color: Colors.black),
+      ),
 );

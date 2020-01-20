@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/photoViewer.dart';
+import 'package:koop/components/views/photoViewer.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/screens/cgu_screen.dart';
 import 'package:koop/screens/home_screen.dart';
@@ -9,7 +9,7 @@ import 'package:koop/screens/sign_up_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // TODO: Handle restore if already signed in else show sign in page
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,11 +28,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-ThemeData themeData = ThemeData.light().copyWith(
+ThemeData themeData = ThemeData.dark().copyWith(
   accentColor: Color(0xFFD4AF37),
-  primaryColor: Colors.white,
-  indicatorColor: Color(0xFFD4AF37),
-  primaryTextTheme: ThemeData.light().textTheme.copyWith(
-        title: TextStyle(color: Colors.black),
-      ),
 );

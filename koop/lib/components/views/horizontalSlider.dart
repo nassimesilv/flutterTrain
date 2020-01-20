@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koop/screens/home_screen.dart';
+import 'package:koop/components/views/homeScrollView.dart';
 
 class HorizontalSlider extends StatelessWidget {
   final String sliderTitle;
@@ -21,7 +21,7 @@ class HorizontalSlider extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: getSmallSlideItems('around'),
+              children: getBarberCards('around'),
             ),
           ),
         ],

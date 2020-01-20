@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/utils/constants.dart';
 
-class SmallSlideItem extends StatelessWidget {
+class BarberCard extends StatelessWidget {
   final String barberId;
   final Image img;
   final String name;
@@ -10,7 +10,7 @@ class SmallSlideItem extends StatelessWidget {
   final String distance;
   final String rating;
 
-  SmallSlideItem(
+  BarberCard(
       {@required this.barberId,
       @required this.img,
       @required this.name,

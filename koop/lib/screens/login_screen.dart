@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:koop/components/buttons/facebookLoginButton.dart';
+import 'package:koop/components/forms/signInForm.dart';
 import 'package:koop/screens/sign_up_screen.dart';
-import 'package:koop/screens/home_screen.dart';
 import 'package:koop/utils/constants.dart';
 
-const TextStyle kButtonTextStyle = TextStyle(
-  fontSize: 16.0,
-  fontWeight: FontWeight.bold,
-  color: Colors.white,
-);
+const double logoSize = 100.0;
+const String appName = 'KOOP';
+const double appNameFontSize = 100.0;
+const String separatorText = 'OU';
+const String noAccountText = 'Pas de compte?';
+const String createAccountText = 'Créer un compte';
+
 
 class LoginScreen extends StatelessWidget {
   static final String title = 'login_screen';
@@ -24,13 +26,15 @@ class LoginScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
+        // TODO: Bug keybord on top of field resizeToAvoidBottomPadding: false,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            padding: kFormPadding,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                // TODO: Fix bug on keyboard showing first container hide
                 Expanded(
                   flex: 10,
                   child: Column(
@@ -40,43 +44,37 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Hero(
-                            tag: 'logo',
+                            tag: kLogoHeroTag,
                             child: Container(
-                              width: 100.0,
-                              height: 100.0,
-                              child: Image.asset('images/logoWhite.png'),
+                              width: logoSize,
+                              height: logoSize,
+                              child: Image.asset(kLogoImagePath),
                             ),
                           ),
-                          Text('Koop',
+                          Text(appName,
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .primaryTextTheme
                                     .title
                                     .color,
-                                fontSize: 50.0,
+                                fontSize: appNameFontSize,
                                 fontWeight: FontWeight.bold,
                               ))
                         ],
                       ),
-                      LoginForm(),
+                      SignInForm(),
                       SizedBox(height: kSizedBoxSize),
                       Row(
                         children: <Widget>[
                           Expanded(
-                              child: Divider(
-                            thickness: 2.0,
-                          )),
-                          SizedBox(
-                            width: 5.0,
+                            child: Divider(thickness: 2.0),
                           ),
-                          Text('OU'),
-                          SizedBox(
-                            width: 5.0,
-                          ),
+                          SizedBox(width: 5.0),
+                          Text(separatorText),
+                          SizedBox(width: 5.0),
                           Expanded(
-                              child: Divider(
-                            thickness: 2.0,
-                          )),
+                            child: Divider(thickness: 2.0),
+                          ),
                         ],
                       ),
                       SizedBox(height: kSizedBoxSize),
@@ -88,16 +86,15 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Pas de compte?'),
+                      Text(noAccountText),
                       FlatButton(
                         padding: EdgeInsets.all(5.0),
                         onPressed: () {
                           Navigator.pushNamed(context, SignUpScreen.title);
                         },
                         child: Text(
-                          'Créer un compte',
-                          style:
-                              TextStyle(decoration: TextDecoration.underline),
+                          createAccountText,
+                          style: kUnderlineText,
                         ),
                       ),
                     ],
@@ -107,116 +104,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatefulWidget {
-  @override
-  LoginFormState createState() {
-    return LoginFormState();
-  }
-}
-
-class LoginFormState extends State<LoginForm> {
-  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          FormBuilder(
-            key: _formKey,
-            autovalidate: false,
-            child: Column(
-              children: <Widget>[
-                FormBuilderTextField(
-                  attribute: 'email',
-                  decoration: InputDecoration(labelText: 'Email'),
-                  maxLines: 1,
-                  validators: [
-                    FormBuilderValidators.email(
-                        errorText: 'Veuillez entrer une adresse email valide'),
-                    FormBuilderValidators.required(
-                        errorText: 'Veuillez taper une addresse email'),
-                  ],
-                ),
-                FormBuilderTextField(
-                  attribute: 'Mot de passe',
-                  decoration: InputDecoration(
-                    labelText: 'Mot de passe',
-                  ),
-                  maxLines: 1,
-                  validators: [
-                    FormBuilderValidators.required(
-                        errorText: 'Veuillez entrer un mot de passe'),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: FlatButton(
-              child: Text(
-                'Mot de passe oublié?',
-                style: TextStyle(decoration: TextDecoration.underline),
-              ),
-              onPressed: () {
-                //TODO: Handle forgot password here on click
-              },
-            ),
-          ),
-          ButtonTheme(
-            buttonColor: Theme.of(context).accentColor,
-            minWidth: double.infinity,
-            child: RaisedButton(
-              child: Text(
-                'Se connecter',
-                style: kButtonTextStyle,
-              ),
-              onPressed: () {
-                if (_formKey.currentState.saveAndValidate()) {
-                  // _formKey.currentState.value store email and password
-                  //TODO: Handle Auth request here on click
-                  // _formKey.currentState.reset();  
-                }
-                Navigator.pushReplacementNamed(context, HomeScreen.title);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class FacebookSignInButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: () {
-        // TODO add fb auth
-      },
-      color: Color(0xFF4267B2),
-      padding: EdgeInsets.all(8.0),
-      child: Row(
-        children: <Widget>[
-          Image.asset(
-            'images/f_logo.png',
-            height: 24.0,
-            width: 24.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 14.0, right: 10.0),
-            child: Text(
-              'Se connecter avec Facebook',
-              style: kButtonTextStyle,
-            ),
-          ),
-        ],
       ),
     );
   }

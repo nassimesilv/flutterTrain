@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/barberProfileBar.dart';
-import 'package:koop/components/barberProfileCommentsViewer.dart';
-import 'package:koop/components/barberProfilePictureGrid.dart';
-import 'package:koop/utils/constants.dart';
-import 'package:koop/components/barberProfileInfoViewer.dart';
-
-class Barber {
-  String rating;
-  String name;
-}
+import 'package:koop/components/bars/barberProfileBar.dart';
+import 'package:koop/components/views/barberInfoView.dart';
+import 'package:koop/components/views/barberPicturesView.dart';
+import 'package:koop/components/views/commentsView.dart';
+import 'package:koop/models/barber.model.dart';
 
 class BarberProfileScreen extends StatefulWidget {
   static String title = 'barber_profile_screen';
@@ -23,10 +18,11 @@ class BarberProfileScreen extends StatefulWidget {
 class _BarberProfileScreenState extends State<BarberProfileScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  Barber barber;
 
   @override
   void initState() {
-    // TODO: implement initState, get Barber informations
+    this.barber = this.getBarber(widget.barberId);
     this._tabController = TabController(vsync: this, length: 4);
     super.initState();
   }
@@ -35,6 +31,20 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
   void dispose() {
     this._tabController.dispose();
     super.dispose();
+  }
+
+  Barber getBarber(String barberId) {
+    // TODO request barber here is a fake barber
+    Barber barber = Barber(
+      barberId: 'barberId',
+      name: 'Barber Shop',
+      rating: 4.3.toString(),
+      address: '30 Bis avenue du general sarrail, Chalons en chanmpagne',
+      img: Image.asset('images/fakeBarberProfileImage.jpg'),
+      distance: 2.3.toString(),
+    );
+
+    return barber;
   }
 
   @override
@@ -47,7 +57,7 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
               expandedHeight: MediaQuery.of(context).size.height * 0.25,
               floating: true,
               pinned: false,
-              title: Text('Barber Shop'),
+              title: Text(this.barber.name),
               centerTitle: true,
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(130.0),
@@ -86,9 +96,9 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
               child: TabBarView(
                 controller: this._tabController,
                 children: <Widget>[
-                  BarberProfilePictureGrid(),
+                  BarberPicturesView(),
                   Center(child: Text('Content of Profile')),
-                  BarberProfileInfoViewer(),
+                  BarberInfoView(),
                   ListView(
                     padding: const EdgeInsets.all(20.0),
                     children: getCommentsList(),
@@ -101,38 +111,6 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
       ),
     );
   }
-}
-
-List<BarberProfileComment> getCommentsList() {
-  List<BarberProfileComment> commentsList = [
-    BarberProfileComment(
-      initials: 'SB',
-      rating: 3.5.toString(),
-      commentText: 'Barber de fou rien a redire',
-    ),
-    BarberProfileComment(
-      initials: 'ND',
-      rating: 2.9.toString(),
-      commentText: 'Nul nul nul!',
-    ),
-    BarberProfileComment(
-      initials: 'ME',
-      rating: 5.toString(),
-      commentText:
-          'Les contours sont carre satisfait du taff du bon vieu ferufvhwevfhiwdfvbowiefvbiewrvbervewrvewve',
-    ),
-    BarberProfileComment(
-      initials: 'AS',
-      rating: 4.5.toString(),
-      commentText: 'Parfait!',
-    ),
-    BarberProfileComment(
-      initials: 'YK',
-      rating: 3.5.toString(),
-      commentText: 'Passable',
-    )
-  ];
-  return commentsList;
 }
 
 class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {

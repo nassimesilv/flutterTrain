@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/photoViewer.dart';
+import 'package:koop/components/views/photoViewer.dart';
 
-class BarberProfilePictureGrid extends StatelessWidget {
+class BarberPicturesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

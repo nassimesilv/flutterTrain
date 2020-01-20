@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SearchItem extends StatelessWidget {
+class SearchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(

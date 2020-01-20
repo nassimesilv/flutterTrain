@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koop/components/buttons/simpleButton.dart';
 import 'package:koop/utils/constants.dart';
 
 class BarberProfileBar extends StatelessWidget {
@@ -72,20 +73,13 @@ class BarberProfileBar extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: ButtonTheme(
-                    minWidth: double.infinity,
-                    buttonColor: Theme.of(context).accentColor,
-                    child: RaisedButton(
-                      child: Text(
-                        'Prendre un RDV',
-                        style: kButtonTextStyle,
-                      ),
-                      onPressed: () {
-                        // TODO: ADD navigation to rdv screen
-                        /* Navigator.pushReplacementNamed(
+                  child: SimpleButton(
+                    label: 'Prendre un RDV',
+                    onPressed: () {
+                      // TODO: ADD navigation to rdv screen
+                      /* Navigator.pushReplacementNamed(
                             context, CGUScreen.title); */
-                      },
-                    ),
+                    },
                   ),
                 ),
               ],
@@ -96,7 +90,6 @@ class BarberProfileBar extends StatelessWidget {
     );
   }
 }
-
 
 class BarberCircleAvatar extends StatelessWidget {
   final Image image;

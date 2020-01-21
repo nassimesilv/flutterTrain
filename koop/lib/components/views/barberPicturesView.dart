@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/views/photoViewer.dart';
+import 'package:koop/models/galleryItem.model.dart';
+
+const double gridSpacing = 2.0;
 
 class BarberPicturesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GridView.count(
-        mainAxisSpacing: 2.0,
-        crossAxisSpacing: 2.0,
-        children: getGalleryImages(context),
+        mainAxisSpacing: gridSpacing,
+        crossAxisSpacing: gridSpacing,
+        children: getGalleryCards(context),
         crossAxisCount: 3,
       ),
     );
   }
 }
 
-class GalleryItem {
-  final String id;
-  final String image;
 
-  GalleryItem({this.id, this.image});
-}
 
 List<GalleryItem> getGalleryItems() {
+  // TODO: Handle instagram and backen images
   List<GalleryItem> galleryItem = [];
 
   for (int i = 0; i < 20; i++) {
@@ -33,28 +32,28 @@ List<GalleryItem> getGalleryItems() {
   return galleryItem;
 }
 
-List<Container> getGalleryImages(BuildContext context) {
-  List<GalleryItem> galleryItem = getGalleryItems();
+List<Container> getGalleryCards(BuildContext context) {
+  List<GalleryItem> galleryItems = getGalleryItems();
   List<Container> list = [];
-
-  for (var item in galleryItem) {
-    list.add(Container(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, PhotoViewer.title,
-              arguments: galleryItem);
-        },
-        child: Hero(
-          tag: item.id,
-          child: FittedBox(
-            child: Image.asset(item.image),
-            fit: BoxFit.cover,
+  
+  for (int i = 0; i < galleryItems.length; i++) {
+    list.add(
+      Container(
+        child: GestureDetector(
+          onTap: () {
+            openPhotoViewer(context, i, galleryItems, false);
+          },
+          child: Hero(
+            tag: galleryItems[i].id,
+            child: FittedBox(
+              child: Image.asset(galleryItems[i].image),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   return list;
 }
-

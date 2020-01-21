@@ -1,45 +1,39 @@
-
 import 'package:flutter/material.dart';
 import 'package:koop/components/bars/circleAvatarBar.dart';
-import 'package:koop/components/bars/searchBar.dart';
 import 'package:koop/components/cards/barberCard.dart';
-
-import 'horizontalSlider.dart';
+import 'package:koop/components/views/horizontalSlider.dart';
 
 class HomeScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: MediaQuery.of(context).size.height * 0.2,
-          floating: true,
-          pinned: false,
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(110.0),
-            child: Text(''),
-          ),
-          flexibleSpace: Container(
-            padding: EdgeInsets.all(10),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: SearchBar(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('KOOP'),
+        centerTitle: true,
+      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: MediaQuery.of(context).size.height * 0.12,
+            floating: true,
+            pinned: false,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                child: Column(
+                  children: <Widget>[
+                    Expanded(child: CircleAvatarBar()),
+                  ],
                 ),
-                Expanded(
-                  child: CircleAvatarBar(),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate(getHorizontalSliders(),),
-        )
-      ],
+          SliverList(
+            delegate: SliverChildListDelegate(
+              getHorizontalSliders(),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
@@ -52,8 +46,6 @@ List<HorizontalSlider> getHorizontalSliders() {
   ];
   return horizontalSliderList;
 }
-
-
 
 List<BarberCard> getBarberCards(String sliderType) {
   // slider type property is for example favorites, around, trending, ...

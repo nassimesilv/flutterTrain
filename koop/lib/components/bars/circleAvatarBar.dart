@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:koop/screens/barber_profile_screen.dart';
 
 class CircleAvatarBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      width: double.infinity,
       child: ListView(
-        scrollDirection: Axis.horizontal,
         children: getFavoritesCircleAvatar(),
+        scrollDirection: Axis.horizontal,
       ),
     );
   }
@@ -15,29 +16,30 @@ class CircleAvatarBar extends StatelessWidget {
 
 class FavoriteCircleAvatar extends StatelessWidget {
   final Image image;
+  final String barberId;
 
-  FavoriteCircleAvatar({this.image});
+  FavoriteCircleAvatar({this.image, this.barberId});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
-      padding: EdgeInsets.all(2.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
-        shape: BoxShape.circle,
-      ),
-      child: GestureDetector(
-        onTap: () {
-          // TODO: Navigate to barber page
-        },
-        child: CircleAvatar(
-          minRadius: 20.0,
-          maxRadius: 30.0,
-          child: ClipOval(
-            child: Image.asset('images/fakeCircleAvatar.jpg')
-          )
-          //TODO Add background Image
+      width: 70.0,
+      height: 70.0,
+          child: Container(
+        margin: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 10.0),
+        padding: EdgeInsets.all(2.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).accentColor,
+          shape: BoxShape.circle,
+        ),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, BarberProfileScreen.title, arguments: barberId);
+          },
+          child: CircleAvatar(
+              child: ClipOval(child: Image.asset('images/fakeCircleAvatar.jpg'))
+              //TODO Add background Image
+              ),
         ),
       ),
     );

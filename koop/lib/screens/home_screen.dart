@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/bars/bottomNavBar.dart';
 import 'package:koop/components/views/homeScrollView.dart';
+import 'package:koop/components/views/searchView.dart';
 import 'package:koop/screens/cgu_screen.dart';
 
 const String homeTabLabel = 'Acceuil';
+const String searchTabLabel = 'Rechercher';
 const String myAppointmentsTabLabel = 'Mes RDV';
 const String settingsTabLabel = 'Paramètres';
+
+
 
 class HomeScreen extends StatefulWidget {
   static String title = 'home_screen';
@@ -15,6 +19,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Map<Widget, BottomNavyBarItem> tabs = {
+  HomeScrollView(): BottomNavyBarItem(
+    icon: Icon(Icons.home),
+    title: Text(homeTabLabel),
+  ), // TODO: Add search screen
+  SearchView(): BottomNavyBarItem(
+    icon: Icon(Icons.search),
+    title: Text(searchTabLabel),
+  ), // TODO: Add meetings screen
+  CGUScreen(): BottomNavyBarItem(
+    icon: Icon(Icons.calendar_today),
+    title: Text(myAppointmentsTabLabel),
+  ), // TODO: Add settings screen
+  CGUScreen(): BottomNavyBarItem(
+    icon: Icon(Icons.settings),
+    title: Text(settingsTabLabel),
+  ),
+};
+
   int _selectedIndex = 0;
   final PageController pageController = PageController();
 
@@ -47,9 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               children: <Widget>[
-                HomeScrollView(),
-                CGUScreen(), // TODO: Add meeting screen
-                CGUScreen(), // TODO: Add settings screen
+                tabs.keys.elementAt(0),
+                tabs.keys.elementAt(1),
+                tabs.keys.elementAt(2),
+                tabs.keys.elementAt(3),
               ],
             ),
           ),
@@ -62,18 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedColor: Theme.of(context).accentColor,
             showElevation: true,
             items: [
-              BottomNavyBarItem(
-                icon: Icon(Icons.home),
-                title: Text(homeTabLabel),
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.calendar_today),
-                title: Text(myAppointmentsTabLabel),
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.settings),
-                title: Text(settingsTabLabel),
-              ),
+              tabs.values.elementAt(0),
+              tabs.values.elementAt(1),
+              tabs.values.elementAt(2),
+              tabs.values.elementAt(3),
             ],
           ),
         ),
@@ -81,3 +97,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

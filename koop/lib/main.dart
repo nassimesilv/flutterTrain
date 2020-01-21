@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/views/photoViewer.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/screens/cgu_screen.dart';
 import 'package:koop/screens/home_screen.dart';
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
         CGUScreen.title: (context) => CGUScreen(),
         HomeScreen.title: (context) => HomeScreen(),
         BarberProfileScreen.title: (context) => BarberProfileScreen(),
-        PhotoViewer.title: (context) => PhotoViewer(),
       },
     );
   }
@@ -30,4 +28,5 @@ class MyApp extends StatelessWidget {
 
 ThemeData themeData = ThemeData.dark().copyWith(
   accentColor: Color(0xFFD4AF37),
+  indicatorColor: Color(0xFFD4AF37),
 );

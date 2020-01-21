@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/buttons/simpleButton.dart';
-import 'package:koop/utils/constants.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 
 class BarberProfileBar extends StatelessWidget {
-  const BarberProfileBar({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 70.0),
+    return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -19,16 +15,21 @@ class BarberProfileBar extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    RatingBarIndicator(
+                      rating: 3.75,
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 15.0,
+                      direction: Axis.horizontal,
+                    ),
+                    Column(
                       children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: kRatingStarColor,
-                          size: 20,
-                        ),
                         Text(
                           '256',
                           style: TextStyle(
@@ -36,28 +37,20 @@ class BarberProfileBar extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '100',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text(
-                          ' 4.3 ',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
                           'Like',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          '100',
+                          style: TextStyle(
+                            fontSize: 15,
                           ),
                         ),
                         Text(
@@ -71,6 +64,7 @@ class BarberProfileBar extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 5.0),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SimpleButton(

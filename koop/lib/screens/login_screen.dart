@@ -11,7 +11,6 @@ const String separatorText = 'OU';
 const String noAccountText = 'Pas de compte?';
 const String createAccountText = 'Créer un compte';
 
-
 class LoginScreen extends StatelessWidget {
   static final String title = 'login_screen';
 

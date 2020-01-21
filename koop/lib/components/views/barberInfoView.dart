@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:koop/components/buttons/simpleButton.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
+const EdgeInsets viewPadding = const EdgeInsets.symmetric(horizontal: 20.0);
+
 class BarberInfoView extends StatelessWidget {
   BarberInfoView();
 
@@ -9,7 +11,7 @@ class BarberInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: viewPadding,
         child: SimpleButton(
           label: 'Open localization',
           onPressed: () {

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/views/homeScrollView.dart';
 
+const EdgeInsets sliderPadding = EdgeInsets.symmetric(horizontal: 10.0);
+const double sizedBoxSize = 10.0;
+const String seeAllButtonLabel = "Tout voir";
+const TextStyle horizontalSliderTitleStyle = TextStyle(
+  fontSize: 23,
+  fontWeight: FontWeight.w800,
+);
+
 class HorizontalSlider extends StatelessWidget {
   final String sliderTitle;
 
@@ -9,21 +17,20 @@ class HorizontalSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.0),
+      padding: sliderPadding,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
+          SizedBox(height: sizedBoxSize),
           HorizontalSliderTitle(title: this.sliderTitle),
           Container(
-            height: MediaQuery.of(context).size.height / 2.4,
+            height: MediaQuery.of(context).size.height / 3.0,
             width: MediaQuery.of(context).size.width,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: getBarberCards('around'),
             ),
           ),
+          SizedBox(height: sizedBoxSize),
         ],
       ),
     );
@@ -43,17 +50,12 @@ class HorizontalSliderTitle extends StatelessWidget {
       children: <Widget>[
         Text(
           this.title,
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.w800,
-          ),
+          style: horizontalSliderTitleStyle,
         ),
         FlatButton(
           child: Text(
-            "Tout voir",
+            seeAllButtonLabel,
             style: TextStyle(
-//                      fontSize: 22,
-//                      fontWeight: FontWeight.w800,
               color: Theme.of(context).accentColor,
             ),
           ),

@@ -6,9 +6,10 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5.0),
+      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
       child: Card(
         elevation: 6.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         color: Colors.white,
         child: TextField(
           style: TextStyle(

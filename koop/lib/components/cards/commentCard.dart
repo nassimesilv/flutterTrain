@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:koop/utils/constants.dart';
 import 'package:random_color/random_color.dart';
 
 class CommentCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class CommentCard extends StatelessWidget {
     return Card(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(kCardBorderRadius),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

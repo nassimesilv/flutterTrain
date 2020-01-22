@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/bars/bottomNavBar.dart';
+import 'package:koop/components/views/appointmentsView.dart';
 import 'package:koop/components/views/homeScrollView.dart';
 import 'package:koop/components/views/searchView.dart';
+import 'package:koop/components/views/settingsView.dart';
 import 'package:koop/screens/cgu_screen.dart';
 
 const String homeTabLabel = 'Acceuil';
@@ -28,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
     icon: Icon(Icons.search),
     title: Text(searchTabLabel),
   ), // TODO: Add meetings screen
-  CGUScreen(): BottomNavyBarItem(
+  AppointmentsView(): BottomNavyBarItem(
     icon: Icon(Icons.calendar_today),
     title: Text(myAppointmentsTabLabel),
   ), // TODO: Add settings screen
-  CGUScreen(): BottomNavyBarItem(
+  SettingsView(): BottomNavyBarItem(
     icon: Icon(Icons.settings),
     title: Text(settingsTabLabel),
   ),

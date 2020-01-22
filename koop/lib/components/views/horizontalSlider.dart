@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/views/homeScrollView.dart';
+import 'package:koop/components/views/homeScrollView.dart' as HomeScrollView;
+import 'package:koop/screens/vertical_slider_screen.dart';
+import 'package:koop/utils/constants.dart';
 
 const EdgeInsets sliderPadding = EdgeInsets.symmetric(horizontal: 10.0);
 const double sizedBoxSize = 10.0;
@@ -27,7 +29,7 @@ class HorizontalSlider extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: getBarberCards('around'),
+              children: HomeScrollView.getBarberCards('around'),
             ),
           ),
           SizedBox(height: sizedBoxSize),
@@ -57,10 +59,11 @@ class HorizontalSliderTitle extends StatelessWidget {
             seeAllButtonLabel,
             style: TextStyle(
               color: Theme.of(context).accentColor,
+              decoration: TextDecoration.underline,
             ),
           ),
           onPressed: () {
-            //TODO Add navigation to favorite view
+            Navigator.pushNamed(context, VerticalSliderScreen.title, arguments: ScreenArguments(this.title));
           },
         ),
       ],

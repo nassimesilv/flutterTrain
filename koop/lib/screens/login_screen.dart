@@ -6,7 +6,7 @@ import 'package:koop/utils/constants.dart';
 
 const double logoSize = 100.0;
 const String appName = 'KOOP';
-const double appNameFontSize = 100.0;
+const double appNameFontSize = 60.0;
 const String separatorText = 'OU';
 const String noAccountText = 'Pas de compte?';
 const String createAccountText = 'Créer un compte';

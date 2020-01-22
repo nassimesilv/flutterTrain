@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/utils/constants.dart';
+import 'package:like_button/like_button.dart';
 
 class BarberCard extends StatelessWidget {
   final String barberId;
@@ -31,7 +32,7 @@ class BarberCard extends StatelessWidget {
           width: MediaQuery.of(context).size.width / 1.2,
           child: Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(kCardBorderRadius)),
             elevation: 6.0,
             child: Column(
               children: <Widget>[
@@ -42,8 +43,8 @@ class BarberCard extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(kCardBorderRadius),
+                            topRight: Radius.circular(kCardBorderRadius),
                           ),
                           child: Image.asset(
                             'images/fakeBarberProfileImage.jpg',
@@ -53,10 +54,64 @@ class BarberCard extends StatelessWidget {
                       ),
                       Positioned(
                         top: 6.0,
+                        left: 6.0,
+                        child: Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: LikeButton(
+                            size: MediaQuery.of(context).size.height * 0.04,
+                            circleColor: CircleColor(
+                                start: Colors.pink,
+                                end: Theme.of(context).accentColor),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Colors.pink,
+                              dotSecondaryColor:
+                                  Theme.of(context).accentColor,
+                            ),
+                            countPostion: CountPostion.right,
+                            likeBuilder: (bool isLiked) {
+                              return isLiked
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Theme.of(context).accentColor,
+                                      size:
+                                          MediaQuery.of(context).size.height *
+                                              0.04,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border,
+                                      color: Theme.of(context).accentColor,
+                                      size:
+                                          MediaQuery.of(context).size.height *
+                                              0.04,
+                                    );
+                            },
+                            likeCount: 100,
+                            countBuilder:
+                                (int count, bool isLiked, String text) {
+                              var color =
+                                  isLiked ? Colors.white : Colors.grey;
+                              Widget result;
+                              if (count == 0) {
+                                result = Text(
+                                  "",
+                                );
+                              } else
+                                result = Text(
+                                  text,
+                                  style: TextStyle(color: color),
+                                );
+                              return result;
+                            },
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 6.0,
                         right: 6.0,
                         child: Card(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0)),
+                              borderRadius:
+                                  BorderRadius.circular(kCardBorderRadius)),
                           child: Padding(
                             padding: EdgeInsets.all(2.0),
                             child: Row(
@@ -64,12 +119,12 @@ class BarberCard extends StatelessWidget {
                                 Icon(
                                   Icons.star,
                                   color: kRatingStarColor,
-                                  size: 10,
+                                  size: 15,
                                 ),
                                 Text(
                                   ' $rating ',
                                   style: TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 15,
                                   ),
                                 ),
                               ],

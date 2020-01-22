@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
+import 'package:koop/utils/constants.dart';
+import 'package:like_button/like_button.dart';
 
-const double cardCircularBorderRadius = 20.0;
+const double cardCircularBorderRadius = kCardBorderRadius;
 const double cardPadding = 10.0;
 
 class SearchCard extends StatelessWidget {
@@ -83,13 +85,43 @@ _columnWithContent(BuildContext context) {
           ),
         ),
       ),
-      IconButton(
-        icon: Icon(
-          Icons.favorite_border,
-          size: MediaQuery.of(context).size.height * 0.04,
-          color: Theme.of(context).accentColor,
+      LikeButton(
+        size: MediaQuery.of(context).size.height * 0.04,
+        circleColor:
+            CircleColor(start: Colors.pink, end: Theme.of(context).accentColor),
+        bubblesColor: BubblesColor(
+          dotPrimaryColor: Colors.pink,
+          dotSecondaryColor: Theme.of(context).accentColor,
         ),
-        onPressed: () {},
+        countPostion: CountPostion.bottom,
+        likeBuilder: (bool isLiked) {
+          return isLiked
+              ? Icon(
+                  Icons.favorite,
+                  color: Theme.of(context).accentColor,
+                  size: MediaQuery.of(context).size.height * 0.04,
+                )
+              : Icon(
+                  Icons.favorite_border,
+                  color: Theme.of(context).accentColor,
+                  size: MediaQuery.of(context).size.height * 0.04,
+                );
+        },
+        likeCount: 0,
+        countBuilder: (int count, bool isLiked, String text) {
+          var color = isLiked ? Colors.white : Colors.grey;
+          Widget result;
+          if (count == 0) {
+            result = Text(
+              "",
+            );
+          } else
+            result = Text(
+              text,
+              style: TextStyle(color: color),
+            );
+          return result;
+        },
       ),
     ],
   );

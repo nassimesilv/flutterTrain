@@ -10,3 +10,5 @@ const EdgeInsets kFormPadding = EdgeInsets.symmetric(horizontal: 40.0);
 
 const String kLogoHeroTag = 'logo';
 const String kLogoImagePath = 'images/logoWhite.png';
+
+const double kCardBorderRadius = 10.0;

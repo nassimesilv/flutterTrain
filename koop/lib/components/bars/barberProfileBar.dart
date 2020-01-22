@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/buttons/simpleButton.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import 'package:koop/utils/constants.dart';
+import 'package:koop/screens/barber_profile_screen.dart';
+import 'package:like_button/like_button.dart';
 
 class BarberProfileBar extends StatelessWidget {
+  final TabController tabController;
+
+  BarberProfileBar({this.tabController});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          BarberCircleAvatar(),
+          BarberSquareAvatar(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -28,22 +34,44 @@ class BarberProfileBar extends StatelessWidget {
                       itemSize: 15.0,
                       direction: Axis.horizontal,
                     ),
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          '256',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          'Like',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    LikeButton(
+                      size: MediaQuery.of(context).size.height * 0.04,
+                      circleColor: CircleColor(
+                          start: Colors.pink,
+                          end: Theme.of(context).accentColor),
+                      bubblesColor: BubblesColor(
+                        dotPrimaryColor: Colors.pink,
+                        dotSecondaryColor: Theme.of(context).accentColor,
+                      ),
+                      countPostion: CountPostion.bottom,
+                      likeBuilder: (bool isLiked) {
+                        return isLiked
+                            ? Icon(
+                                Icons.favorite,
+                                color: Theme.of(context).accentColor,
+                                size: MediaQuery.of(context).size.height * 0.04,
+                              )
+                            : Icon(
+                                Icons.favorite_border,
+                                color: Theme.of(context).accentColor,
+                                size: MediaQuery.of(context).size.height * 0.04,
+                              );
+                      },
+                      likeCount: 100,
+                      countBuilder: (int count, bool isLiked, String text) {
+                        var color = isLiked ? Colors.white : Colors.grey;
+                        Widget result;
+                        if (count == 0) {
+                          result = Text(
+                            "",
+                          );
+                        } else
+                          result = Text(
+                            text,
+                            style: TextStyle(color: color),
+                          );
+                        return result;
+                      },
                     ),
                     Column(
                       children: <Widget>[
@@ -70,9 +98,7 @@ class BarberProfileBar extends StatelessWidget {
                   child: SimpleButton(
                     label: 'Prendre un RDV',
                     onPressed: () {
-                      // TODO: ADD navigation to rdv screen
-                      /* Navigator.pushReplacementNamed(
-                            context, CGUScreen.title); */
+                      this.tabController.animateTo(1);
                     },
                   ),
                 ),
@@ -105,6 +131,39 @@ class BarberCircleAvatar extends StatelessWidget {
           child: ClipOval(child: Image.asset('images/fakeCircleAvatar.jpg'))
           //TODO Add background Image
           ),
+    );
+  }
+}
+
+class BarberSquareAvatar extends StatelessWidget {
+  final Image image;
+
+  BarberSquareAvatar({this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100.0,
+      height: 100.0,
+      child: Container(
+        margin: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 10.0),
+        padding: EdgeInsets.all(2.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(kCardBorderRadius),
+          color: Theme.of(context).accentColor,
+          shape: BoxShape.rectangle,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('images/fakeCircleAvatar.jpg'),
+            ),
+            borderRadius: BorderRadius.circular(kCardBorderRadius),
+            shape: BoxShape.rectangle,
+          ),
+        ),
+      ),
     );
   }
 }

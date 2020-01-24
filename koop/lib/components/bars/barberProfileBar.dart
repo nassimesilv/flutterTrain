@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/buttons/simpleButton.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:koop/models/barberCard.model.dart';
 import 'package:koop/utils/constants.dart';
-import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:like_button/like_button.dart';
 
 class BarberProfileBar extends StatelessWidget {
   final TabController tabController;
+  final BarberCardModel model;
 
-  BarberProfileBar({this.tabController});
+  BarberProfileBar({this.tabController, this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class BarberProfileBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          BarberSquareAvatar(),
+          BarberSquareAvatar(imageUrl: model.imageUrl),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +26,7 @@ class BarberProfileBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RatingBarIndicator(
-                      rating: 3.75,
+                      rating: model.rate,
                       itemBuilder: (context, index) => Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -57,9 +58,8 @@ class BarberProfileBar extends StatelessWidget {
                                 size: MediaQuery.of(context).size.height * 0.04,
                               );
                       },
-                      likeCount: 100,
+                      likeCount: model.likeCount,
                       countBuilder: (int count, bool isLiked, String text) {
-                        var color = isLiked ? Colors.white : Colors.grey;
                         Widget result;
                         if (count == 0) {
                           result = Text(
@@ -68,7 +68,7 @@ class BarberProfileBar extends StatelessWidget {
                         } else
                           result = Text(
                             text,
-                            style: TextStyle(color: color),
+                            style: TextStyle(color: Theme.of(context).primaryTextTheme.title.color),
                           );
                         return result;
                       },
@@ -76,7 +76,7 @@ class BarberProfileBar extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          '100',
+                          '${model.reviewsCount}',
                           style: TextStyle(
                             fontSize: 15,
                           ),
@@ -112,9 +112,9 @@ class BarberProfileBar extends StatelessWidget {
 }
 
 class BarberCircleAvatar extends StatelessWidget {
-  final Image image;
+  final String imageUrl;
 
-  BarberCircleAvatar({this.image});
+  BarberCircleAvatar({this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class BarberCircleAvatar extends StatelessWidget {
       child: CircleAvatar(
           minRadius: 20.0,
           maxRadius: 40.0,
-          child: ClipOval(child: Image.asset('images/fakeCircleAvatar.jpg'))
+          child: ClipOval(child: Image.asset(this.imageUrl))
           //TODO Add background Image
           ),
     );
@@ -136,9 +136,9 @@ class BarberCircleAvatar extends StatelessWidget {
 }
 
 class BarberSquareAvatar extends StatelessWidget {
-  final Image image;
+  final String imageUrl;
 
-  BarberSquareAvatar({this.image});
+  BarberSquareAvatar({this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,7 @@ class BarberSquareAvatar extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('images/fakeCircleAvatar.jpg'),
+              image: AssetImage(this.imageUrl),
             ),
             borderRadius: BorderRadius.circular(kCardBorderRadius),
             shape: BoxShape.rectangle,

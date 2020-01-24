@@ -12,17 +12,23 @@ class AppointmentsView extends StatelessWidget {
             title: Text('Mes RDV'),
             centerTitle: true,
             bottom: TabBar(
+              labelColor: Theme.of(context).primaryTextTheme.title.color,
+              unselectedLabelColor:
+                  Theme.of(context).primaryTextTheme.title.color,
               tabs: [
                 Tab(
-                  child: Text(
-                    'A venir',
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                ),
+                    child: Text(
+                  'A venir',
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      color: Theme.of(context).primaryTextTheme.title.color),
+                )),
                 Tab(
                   child: Text(
                     'Passés',
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Theme.of(context).primaryTextTheme.title.color),
                   ),
                 ),
               ],
@@ -30,18 +36,41 @@ class AppointmentsView extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              ListView(children: <Widget>[
-                AppointmentCard(isComing: true,),
-                AppointmentCard(isComing: true,),
-                AppointmentCard(isComing: true,),
-                AppointmentCard(isComing: true,),
-              ],),
-              ListView(children: <Widget>[
-                AppointmentCard(isComing: false,),
-                AppointmentCard(isComing: false,),
-                AppointmentCard(isComing: false,),
-                AppointmentCard(isComing: false,),
-              ],),
+              ListView(
+                children: <Widget>[
+                  AppointmentCard(
+                    isComing: true,
+                  ),
+                ],
+              ),
+              ListView(
+                children: <Widget>[
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                  AppointmentCard(
+                    isComing: false,
+                  ),
+                ],
+              ),
             ],
           ),
         ),

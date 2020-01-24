@@ -5,21 +5,17 @@ import 'package:koop/components/views/barberPicturesView.dart';
 import 'package:koop/components/views/barberServicesView.dart';
 import 'package:koop/components/views/commentsView.dart';
 import 'package:koop/models/barber.model.dart';
+import 'package:koop/models/barberCard.model.dart';
 
 const double sliverBarExpandedHeight = 0.20;
 
-Map<Tab, Widget> barberProfileTabs = {
-  Tab(icon: Icon(Icons.grid_on)): BarberPicturesView(),
-  Tab(icon: Icon(Icons.list)): BarberServicesView(),
-  Tab(icon: Icon(Icons.info)): BarberInfoView(),
-  Tab(icon: Icon(Icons.comment)): CommentsView(),
-};
 
 class BarberProfileScreen extends StatefulWidget {
   static String title = 'barber_profile_screen';
   final String barberId;
+  final BarberCardModel model;
 
-  BarberProfileScreen({this.barberId});
+  BarberProfileScreen({this.barberId, this.model});
 
   @override
   _BarberProfileScreenState createState() => _BarberProfileScreenState();
@@ -34,7 +30,7 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
   void initState() {
     this.barber = this.getBarber(widget.barberId);
     this._tabController =
-        TabController(vsync: this, length: barberProfileTabs.length);
+        TabController(vsync: this, length: 4);
     super.initState();
   }
 
@@ -64,7 +60,10 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text(this.barber.name),
+            iconTheme: IconThemeData(
+              color: Theme.of(context).primaryTextTheme.title.color,
+            ),
+            title: Text(widget.model.name),
             centerTitle: true,
           ),
           body: NestedScrollView(
@@ -79,6 +78,7 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
                   leading: Container(),
                   flexibleSpace: FlexibleSpaceBar(
                     background: BarberProfileBar(
+                      model: widget.model,
                       tabController: this._tabController,
                     ),
                   ),
@@ -87,13 +87,34 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
                   pinned: true,
                   delegate: _SliverAppBarDelegate(
                     TabBar(
-                      unselectedLabelColor: Theme.of(context).primaryTextTheme.title.color,
+                      unselectedLabelColor:
+                          Theme.of(context).primaryTextTheme.title.color,
                       controller: this._tabController,
                       tabs: <Widget>[
-                        Tab(icon: Icon(Icons.grid_on, color: Theme.of(context).primaryTextTheme.title.color)),
-                        Tab(icon: Icon(Icons.list, color: Theme.of(context).primaryTextTheme.title.color)),
-                        Tab(icon: Icon(Icons.info, color: Theme.of(context).primaryTextTheme.title.color)),
-                        Tab(icon: Icon(Icons.comment, color: Theme.of(context).primaryTextTheme.title.color)),
+                        Tab(
+                            icon: Icon(Icons.grid_on,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .title
+                                    .color)),
+                        Tab(
+                            icon: Icon(Icons.list,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .title
+                                    .color)),
+                        Tab(
+                            icon: Icon(Icons.info,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .title
+                                    .color)),
+                        Tab(
+                            icon: Icon(Icons.comment,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .title
+                                    .color)),
                       ],
                     ),
                   ),

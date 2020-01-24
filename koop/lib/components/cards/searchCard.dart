@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:koop/models/barberCard.model.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/utils/constants.dart';
 import 'package:like_button/like_button.dart';
@@ -7,9 +8,9 @@ const double cardCircularBorderRadius = kCardBorderRadius;
 const double cardPadding = 10.0;
 
 class SearchCard extends StatelessWidget {
-  final ImageProvider image;
+  final BarberCardModel model;
 
-  SearchCard({this.image});
+  SearchCard({this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,12 @@ class SearchCard extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: image,
+                image: AssetImage(model.imageUrl),
                 colorFilter:
                     ColorFilter.mode(Colors.black54, BlendMode.hardLight),
               ),
             ),
-            child: _columnWithContent(context),
+            child: _columnWithContent(context, this.model),
           ),
         ),
       ),
@@ -40,21 +41,29 @@ class SearchCard extends StatelessWidget {
   }
 }
 
-_columnWithContent(BuildContext context) {
+_columnWithContent(BuildContext context, BarberCardModel model) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
       Expanded(
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, BarberProfileScreen.title);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => BarberProfileScreen(
+                  barberId: '0',
+                  model: model,
+                ),
+              ),
+            );
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Barber  Shop',
+                '${model.name}',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -62,7 +71,7 @@ _columnWithContent(BuildContext context) {
                 ),
               ),
               Text(
-                '30 bis avenue du general sarrail, Chalons-en-Champagne',
+                '${model.address}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: new TextStyle(
@@ -72,7 +81,7 @@ _columnWithContent(BuildContext context) {
                 ),
               ),
               Text(
-                '2.3 km',
+                '${model.distance} km',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: new TextStyle(
@@ -107,7 +116,7 @@ _columnWithContent(BuildContext context) {
                   size: MediaQuery.of(context).size.height * 0.04,
                 );
         },
-        likeCount: 0,
+        likeCount: model.likeCount,
         countBuilder: (int count, bool isLiked, String text) {
           var color = isLiked ? Colors.white : Colors.grey;
           Widget result;

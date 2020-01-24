@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/bars/circleAvatarBar.dart';
-import 'package:koop/components/cards/barberCard.dart';
 import 'package:koop/components/views/horizontalSlider.dart';
+import 'package:koop/models/barberSlider.model.dart';
 
 class HomeScrollView extends StatelessWidget {
+  final List<BarberSlider> sliders;
+
+  HomeScrollView({this.sliders});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +33,7 @@ class HomeScrollView extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              getHorizontalSliders(),
+              getHorizontalSliders(sliders),
             ),
           )
         ],
@@ -38,31 +42,15 @@ class HomeScrollView extends StatelessWidget {
   }
 }
 
-List<HorizontalSlider> getHorizontalSliders() {
-  List<HorizontalSlider> horizontalSliderList = [
-    HorizontalSlider(sliderTitle: 'Dans le coin'),
-    HorizontalSlider(sliderTitle: 'Tendances'),
-    HorizontalSlider(sliderTitle: 'Favoris'),
-  ];
+List<HorizontalSlider> getHorizontalSliders(List<BarberSlider> sliders) {
+  List<HorizontalSlider> horizontalSliderList = [];
+
+  for(BarberSlider slider in sliders) {
+    horizontalSliderList.add(
+      HorizontalSlider(slider: slider,)
+    );
+  }
+  
   return horizontalSliderList;
 }
 
-List<BarberCard> getBarberCards(String sliderType) {
-  // slider type property is for example favorites, around, trending, ...
-  //TODO Request barber cards from backend
-  List<BarberCard> barberCardList = [];
-  const barberCardListLength = 5;
-  for (int i = 0; i < barberCardListLength; i++) {
-    barberCardList.add(
-      BarberCard(
-        barberId: i.toString(),
-        distance: 2.5.toString(),
-        address: '30B avenue du general sarrail, chalons en champagne',
-        rating: '3.5',
-        img: null,
-        name: 'Barber Shop',
-      ),
-    );
-  }
-  return barberCardList;
-}

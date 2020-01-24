@@ -35,6 +35,8 @@ dependencies:
   settings_ui: ^0.2.0
   dynamic_theme: ^1.0.1
   url_launcher: ^5.4.1
+  geolocator: ^5.2.0
+
 
 dev_dependencies:
   flutter_launcher_icons: "^0.7.3"
@@ -60,6 +62,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - images/backgroundPicture/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

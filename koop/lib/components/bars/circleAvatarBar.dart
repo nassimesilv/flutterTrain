@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:koop/models/barberCard.model.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
+import 'package:koop/services/barberSliders.service.dart';
 import 'package:koop/utils/constants.dart';
 
 class CircleAvatarBar extends StatelessWidget {
@@ -35,8 +37,14 @@ class FavoriteCircleAvatar extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, BarberProfileScreen.title,
-                arguments: barberId);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => BarberProfileScreen(
+                  barberId: this.barberId,
+                ),
+              ),
+            );
           },
           child: CircleAvatar(
               child: ClipOval(child: Image.asset('images/fakeCircleAvatar.jpg'))
@@ -50,9 +58,10 @@ class FavoriteCircleAvatar extends StatelessWidget {
 
 class FavoriteSquareAvatar extends StatelessWidget {
   final Image image;
+  final BarberCardModel model;
   final String barberId;
 
-  FavoriteSquareAvatar({this.image, this.barberId});
+  FavoriteSquareAvatar({this.image, this.barberId, this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +78,21 @@ class FavoriteSquareAvatar extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, BarberProfileScreen.title,
-                arguments: barberId);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => BarberProfileScreen(
+                  barberId: '0',
+                  model: model,
+                ),
+              ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage('images/fakeCircleAvatar.jpg'),
+                fit: BoxFit.cover,
+                image: AssetImage(model == null ? 'images/fakeBarberProfileImage.jpg' : model.imageUrl),
               ),
               borderRadius: BorderRadius.circular(kCardBorderRadius),
               shape: BoxShape.rectangle,
@@ -105,13 +121,21 @@ List<FavoriteCircleAvatar> getFavoritesCircleAvatar() {
 List<FavoriteSquareAvatar> getFavoritesSquareAvatar() {
   //TODO Request favorites image from background
   List<FavoriteSquareAvatar> favoriteSquareAvatar = [];
-  const favoriteSquareLength = 10;
-  for (int i = 0; i < favoriteSquareLength; i++) {
+  var list = BarberSliderService().getSearchcards();
+  for (BarberCardModel model in list) {
     favoriteSquareAvatar.add(
       FavoriteSquareAvatar(
-        image: null,
+        model: model,
       ),
     );
   }
+  for (BarberCardModel model in list) {
+    favoriteSquareAvatar.add(
+      FavoriteSquareAvatar(
+        model: model,
+      ),
+    );
+  }
+  
   return favoriteSquareAvatar;
 }

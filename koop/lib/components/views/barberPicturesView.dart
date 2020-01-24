@@ -26,7 +26,7 @@ List<GalleryItem> getGalleryItems() {
 
   for (int i = 0; i < 20; i++) {
     galleryItem.add(GalleryItem(
-        id: i.toString(), image: 'images/fakeBarberImage${i % 3}.jpg'));
+        id: i.toString(), image: 'images/fakeBarberImage${i % 12}.jpg'));
   }
 
   return galleryItem;

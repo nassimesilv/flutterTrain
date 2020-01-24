@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:koop/models/barberCard.model.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/utils/constants.dart';
 import 'package:like_button/like_button.dart';
 
 class BarberCard extends StatelessWidget {
-  final String barberId;
-  final Image img;
-  final String name;
-  final String address;
-  final String distance;
-  final String rating;
+  final BarberCardModel model;
 
   BarberCard(
-      {@required this.barberId,
-      @required this.img,
-      @required this.name,
-      @required this.address,
-      @required this.rating,
-      @required this.distance});
+      {@required this.model});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, BarberProfileScreen.title);
+        Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => BarberProfileScreen(
+                  barberId: '0',
+                  model: this.model,
+                ),
+              ),
+            );
       },
       child: Padding(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -47,7 +46,7 @@ class BarberCard extends StatelessWidget {
                             topRight: Radius.circular(kCardBorderRadius),
                           ),
                           child: Image.asset(
-                            'images/fakeBarberProfileImage.jpg',
+                            model.imageUrl,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -85,7 +84,7 @@ class BarberCard extends StatelessWidget {
                                               0.04,
                                     );
                             },
-                            likeCount: 100,
+                            likeCount: model.likeCount,
                             countBuilder:
                                 (int count, bool isLiked, String text) {
                               var color =
@@ -122,7 +121,7 @@ class BarberCard extends StatelessWidget {
                                   size: 15,
                                 ),
                                 Text(
-                                  ' $rating ',
+                                  ' ${model.rate} ',
                                   style: TextStyle(
                                     fontSize: 15,
                                   ),
@@ -141,7 +140,7 @@ class BarberCard extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: Text(
-                      '$name',
+                      '${model.name}',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
@@ -159,7 +158,7 @@ class BarberCard extends StatelessWidget {
                       Flexible(
                         child: Container(
                           child: Text(
-                            '$address',
+                            '${model.address}',
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12,
@@ -173,7 +172,7 @@ class BarberCard extends StatelessWidget {
                       ),
                       Container(
                         child: Text(
-                          '$distance km',
+                          '${model.distance} km',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w300,

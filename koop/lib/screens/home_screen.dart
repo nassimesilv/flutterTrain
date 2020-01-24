@@ -4,14 +4,14 @@ import 'package:koop/components/views/appointmentsView.dart';
 import 'package:koop/components/views/homeScrollView.dart';
 import 'package:koop/components/views/searchView.dart';
 import 'package:koop/components/views/settingsView.dart';
-import 'package:koop/screens/cgu_screen.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:koop/models/barberSlider.model.dart';
+import 'package:koop/services/barberSliders.service.dart';
 
 const String homeTabLabel = 'Acceuil';
 const String searchTabLabel = 'Rechercher';
 const String myAppointmentsTabLabel = 'Mes RDV';
 const String settingsTabLabel = 'Paramètres';
-
-
 
 class HomeScreen extends StatefulWidget {
   static String title = 'home_screen';
@@ -21,33 +21,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Map<Widget, BottomNavyBarItem> tabs = {
-  HomeScrollView(): BottomNavyBarItem(
-    icon: Icon(Icons.home),
-    title: Text(homeTabLabel),
-  ), // TODO: Add search screen
-  SearchView(): BottomNavyBarItem(
-    icon: Icon(Icons.search),
-    title: Text(searchTabLabel),
-  ), // TODO: Add meetings screen
-  AppointmentsView(): BottomNavyBarItem(
-    icon: Icon(Icons.calendar_today),
-    title: Text(myAppointmentsTabLabel),
-  ), // TODO: Add settings screen
-  SettingsView(): BottomNavyBarItem(
-    icon: Icon(Icons.settings),
-    title: Text(settingsTabLabel),
-  ),
-};
+  Position _currentPosition;
+  List<BarberSlider> _barberSliderList;
 
   int _selectedIndex = 0;
   final PageController pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    // this._getCurrentLocation();
+    this._getHomeSliders();
+  }
 
   @override
   void dispose() {
     super.dispose();
     pageController.dispose();
   }
+
+  void _getCurrentLocation() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
+        .then((Position position) {
+      setState(() {
+        this._currentPosition = position;
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  void _getHomeSliders() {
+    setState(() {
+      this._barberSliderList = BarberSliderService().getHomeSliders(this._currentPosition);
+    });
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
               children: <Widget>[
-                tabs.keys.elementAt(0),
-                tabs.keys.elementAt(1),
-                tabs.keys.elementAt(2),
-                tabs.keys.elementAt(3),
+                HomeScrollView(sliders: this._barberSliderList),
+                SearchView(currentPosition: this._currentPosition,),
+                AppointmentsView(),
+                SettingsView(),
               ],
             ),
           ),
@@ -88,10 +101,22 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedColor: Theme.of(context).accentColor,
             showElevation: true,
             items: [
-              tabs.values.elementAt(0),
-              tabs.values.elementAt(1),
-              tabs.values.elementAt(2),
-              tabs.values.elementAt(3),
+              BottomNavyBarItem(
+                icon: Icon(Icons.home),
+                title: Text(homeTabLabel),
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.search),
+                title: Text(searchTabLabel),
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.calendar_today),
+                title: Text(myAppointmentsTabLabel),
+              ),
+              BottomNavyBarItem(
+                icon: Icon(Icons.settings),
+                title: Text(settingsTabLabel),
+              ),
             ],
           ),
         ),
@@ -99,5 +124,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-

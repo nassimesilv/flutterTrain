@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:koop/components/views/homeScrollView.dart' as HomeScrollView;
+import 'package:koop/components/cards/barberCard.dart';
+import 'package:koop/models/barberCard.model.dart';
+import 'package:koop/models/barberSlider.model.dart';
 import 'package:koop/screens/vertical_slider_screen.dart';
-import 'package:koop/utils/constants.dart';
 
 const EdgeInsets sliderPadding = EdgeInsets.symmetric(horizontal: 10.0);
 const double sizedBoxSize = 10.0;
@@ -12,9 +13,9 @@ const TextStyle horizontalSliderTitleStyle = TextStyle(
 );
 
 class HorizontalSlider extends StatelessWidget {
-  final String sliderTitle;
+  final BarberSlider slider;
 
-  HorizontalSlider({@required this.sliderTitle});
+  HorizontalSlider({@required this.slider});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +24,13 @@ class HorizontalSlider extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(height: sizedBoxSize),
-          HorizontalSliderTitle(title: this.sliderTitle),
+          HorizontalSliderTitle(slider: this.slider),
           Container(
             height: MediaQuery.of(context).size.height / 3.0,
             width: MediaQuery.of(context).size.width,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: HomeScrollView.getBarberCards('around'),
+              children: getBarberCards(slider.barberCardList),
             ),
           ),
           SizedBox(height: sizedBoxSize),
@@ -39,11 +40,23 @@ class HorizontalSlider extends StatelessWidget {
   }
 }
 
+List<BarberCard> getBarberCards(List<BarberCardModel> barberCardModelList) {
+  List<BarberCard> barberCardList = [];
+  for (BarberCardModel model in barberCardModelList) {
+    barberCardList.add(
+      BarberCard(
+        model: model,
+      ),
+    );
+  }
+  return barberCardList;
+}
+
 class HorizontalSliderTitle extends StatelessWidget {
-  final String title;
+  final BarberSlider slider;
   //TODO add route property to navigate to
 
-  HorizontalSliderTitle({@required this.title});
+  HorizontalSliderTitle({@required this.slider});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +64,7 @@ class HorizontalSliderTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(
-          this.title,
+          this.slider.sliderTitle,
           style: horizontalSliderTitleStyle,
         ),
         FlatButton(
@@ -63,7 +76,14 @@ class HorizontalSliderTitle extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, VerticalSliderScreen.title, arguments: ScreenArguments(this.title));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => VerticalSliderScreen(
+                  slider: this.slider,
+                ),
+              ),
+            );
           },
         ),
       ],

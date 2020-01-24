@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:koop/components/bars/searchBar.dart';
 import 'package:koop/components/cards/searchCard.dart';
+import 'package:koop/models/barberCard.model.dart';
+import 'package:koop/models/barberSlider.model.dart';
+import 'package:koop/services/barberSliders.service.dart';
 
 class SearchView extends StatefulWidget {
+  final Position currentPosition;
+
+  SearchView({this.currentPosition});
+
   @override
   _SearchViewState createState() => _SearchViewState();
 }
 
 class _SearchViewState extends State<SearchView> {
   List<SearchCard> searchCardList = [];
+  List<BarberCardModel> barberSliderList;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    this.getSearchCardList();
+  }
+
+  void getSearchCardList() {
+    this.barberSliderList = BarberSliderService().getSearchcards();
   }
 
   @override
@@ -33,9 +46,7 @@ class _SearchViewState extends State<SearchView> {
                       child: SearchBar2(
                         onSubmitted: () {
                           setState(() {
-                            this.searchCardList = getSearchCards();
-                            print('hello world');
-                            print(this.searchCardList.length);
+                            this.searchCardList = getSearchCards(this.barberSliderList);
                           });
                         },
                       ),
@@ -56,11 +67,14 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-List<SearchCard> getSearchCards() {
+List<SearchCard> getSearchCards(List<BarberCardModel> modelList) {
   List<SearchCard> searchCardList = [];
-  for (int i = 0; i < 20; i++) {
+
+  for(BarberCardModel model in modelList) {
     searchCardList.add(
-        SearchCard(image: AssetImage('images/fakeBarberImage${i % 3}.jpg')));
+      SearchCard(model: model)
+    );
   }
+
   return searchCardList;
 }

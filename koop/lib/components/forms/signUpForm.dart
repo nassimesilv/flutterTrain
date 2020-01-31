@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:koop/components/buttons/simpleButton.dart';
 import 'package:koop/screens/cgu_screen.dart';
+import 'package:koop/screens/home_screen.dart';
+import 'package:koop/services/auth.service.dart';
 import 'package:koop/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -27,7 +30,7 @@ class SignUpFormState extends State<SignUpForm> {
               children: <Widget>[
                 FormBuilderRadio(
                   decoration: InputDecoration(labelText: 'Je suis un'),
-                  attribute: 'Usertype',
+                  attribute: 'type',
                   leadingInput: true,
                   validators: [
                     FormBuilderValidators.required(
@@ -35,7 +38,7 @@ class SignUpFormState extends State<SignUpForm> {
                   ],
                   options: ['Barber', 'Client']
                       .map(
-                          (userType) => FormBuilderFieldOption(value: userType))
+                          (type) => FormBuilderFieldOption(value: type))
                       .toList(growable: false),
                 ),
                 FormBuilderTextField(
@@ -100,10 +103,20 @@ class SignUpFormState extends State<SignUpForm> {
           ),
           SimpleButton(
             label: 'CrÃ©er un compte',
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState.saveAndValidate()) {
                 // _formKey.currentState.value store email and password
                 //TODO: Handle Signing up request
+                // var result = await Provider.of<AuthService>(context).signUp(
+                //   email: _formKey.currentState.value['email'],
+                //   password: _formKey.currentState.value['password'],
+                //   type: _formKey.currentState.value['type'],
+                // );
+                // if (result == true) {
+                //   Navigator.pushReplacementNamed(context, HomeScreen.title);
+                // } else {
+                //   //TODO Show snackbar
+                // }
                 _formKey.currentState.reset();
               }
             },
@@ -113,4 +126,3 @@ class SignUpFormState extends State<SignUpForm> {
     );
   }
 }
-

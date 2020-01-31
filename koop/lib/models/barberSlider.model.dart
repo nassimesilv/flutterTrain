@@ -1,9 +1,18 @@
 
-import 'barberCard.model.dart';
+import 'dart:convert';
 
-class BarberSlider {
+import 'barber.model.dart';
+
+class BarberSliderModel {
   String sliderTitle;
-  List<BarberCardModel> barberCardList;
+  List<BarberModel> barberCardList;
 
-  BarberSlider({this.sliderTitle, this.barberCardList});
+  BarberSliderModel({this.sliderTitle, this.barberCardList});
+
+  factory BarberSliderModel.fromJson(Map<String, dynamic> json) {
+    return BarberSliderModel(
+      sliderTitle: json['title'],
+      barberCardList: jsonDecode(json['barberList']).map((barber) => BarberModel.fromJson(barber)) ,
+    );
+  }
 }

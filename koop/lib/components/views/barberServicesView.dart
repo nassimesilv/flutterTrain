@@ -9,7 +9,7 @@ class BarberServicesView extends StatefulWidget {
 
 class _BarberServicesViewState extends State<BarberServicesView> {
   bool checkboxValue = false;
-  List<BarberService> serviceList = fakeBarberServices;
+  List<BarberServiceModel> serviceList = fakeBarberServiceModels;
 
   @override
   void initState() {
@@ -27,12 +27,12 @@ class _BarberServicesViewState extends State<BarberServicesView> {
 
 
 
-List<Widget> getServiceCategoryList(List<BarberService> serviceList) {
+List<Widget> getServiceCategoryList(List<BarberServiceModel> serviceList) {
   List<Widget> serviceCategoryList = [];
   if (serviceList.length > 0) {
-    List<BarberService> list = [];
+    List<BarberServiceModel> list = [];
     String currentServiceType = serviceList.first.serviceType;
-    for (BarberService barberService in serviceList) {
+    for (BarberServiceModel barberService in serviceList) {
       print(barberService.serviceName);
       if (barberService.serviceType == currentServiceType) {
         list.add(barberService);
@@ -60,7 +60,7 @@ List<Widget> getServiceCategoryList(List<BarberService> serviceList) {
 }
 
 class ServiceCategory extends StatelessWidget {
-  final List<BarberService> barberServiceList;
+  final List<BarberServiceModel> barberServiceList;
   final String serviceType;
 
   ServiceCategory({this.serviceType, this.barberServiceList});
@@ -92,7 +92,7 @@ class ServiceCategory extends StatelessWidget {
 }
 
 class ServiceTile extends StatefulWidget {
-  final BarberService barberService;
+  final BarberServiceModel barberService;
 
   ServiceTile({this.barberService});
 
@@ -119,6 +119,6 @@ class _ServiceTileState extends State<ServiceTile> {
   }
 }
 
-List<BarberService> getServiceList() {
-  return fakeBarberServices;
+List<BarberServiceModel> getServiceList() {
+  return fakeBarberServiceModels;
 }

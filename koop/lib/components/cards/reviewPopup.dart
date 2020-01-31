@@ -41,7 +41,7 @@ class CustomDialog extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              BarberSquareAvatar(),
+              FavoriteSquareAvatar(),
               Text(
                 'Barber Shop',
                 style: TextStyle(fontSize: 20.0),

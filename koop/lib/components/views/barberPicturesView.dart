@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:koop/components/views/photoViewer.dart';
-import 'package:koop/models/galleryItem.model.dart';
+import 'package:koop/models/barberGallery.model.dart';
 
 const double gridSpacing = 2.0;
 
@@ -20,20 +20,20 @@ class BarberPicturesView extends StatelessWidget {
 
 
 
-List<GalleryItem> getGalleryItems() {
+List<BarberGalleryItemModel> getGalleryItems() {
   // TODO: Handle instagram and backen images
-  List<GalleryItem> galleryItem = [];
+  List<BarberGalleryItemModel> galleryItem = [];
 
   for (int i = 0; i < 20; i++) {
-    galleryItem.add(GalleryItem(
-        id: i.toString(), image: 'images/fakeBarberImage${i % 12}.jpg'));
+    galleryItem.add(BarberGalleryItemModel(
+        itemId: i.toString(), imagePath: 'images/fakeBarberImage${i % 12}.jpg'));
   }
 
   return galleryItem;
 }
 
 List<Container> getGalleryCards(BuildContext context) {
-  List<GalleryItem> galleryItems = getGalleryItems();
+  List<BarberGalleryItemModel> galleryItems = getGalleryItems();
   List<Container> list = [];
   
   for (int i = 0; i < galleryItems.length; i++) {
@@ -44,9 +44,9 @@ List<Container> getGalleryCards(BuildContext context) {
             openPhotoViewer(context, i, galleryItems, false);
           },
           child: Hero(
-            tag: galleryItems[i].id,
+            tag: galleryItems[i].itemId,
             child: FittedBox(
-              child: Image.asset(galleryItems[i].image),
+              child: Image.asset(galleryItems[i].imagePath),
               fit: BoxFit.cover,
             ),
           ),

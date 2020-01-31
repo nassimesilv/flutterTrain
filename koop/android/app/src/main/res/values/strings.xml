@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Koop</string>
+    <string name="facebook_app_id">223341975356612</string>
+    <string name="fb_login_protocol_scheme">fb223341975356612</string>
+</resources>

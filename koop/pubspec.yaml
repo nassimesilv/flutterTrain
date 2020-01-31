@@ -36,6 +36,12 @@ dependencies:
   dynamic_theme: ^1.0.1
   url_launcher: ^5.4.1
   geolocator: ^5.2.0
+  http: ^0.12.0+4
+  flutter_secure_storage: ^3.3.1+1
+  provider: ^4.0.2
+  flutter_facebook_login: ^3.0.0
+  flutter_spinkit: ^4.1.1+1
+  flutter_easyloading: ^1.1.0
 
 
 dev_dependencies:

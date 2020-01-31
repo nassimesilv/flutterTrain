@@ -21,7 +21,7 @@ class BarberInfoView extends StatelessWidget {
     return Container(
       child: Padding(
         padding: viewPadding,
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Text(barberResume),
             SizedBox(

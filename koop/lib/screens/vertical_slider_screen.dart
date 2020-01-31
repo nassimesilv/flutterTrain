@@ -7,7 +7,7 @@ const double sizedBoxSize = 10.0;
 
 class VerticalSliderScreen extends StatelessWidget {
   static final String title = 'vertical_slider_screen';
-  final BarberSlider slider;
+  final BarberSliderModel slider;
 
   VerticalSliderScreen({this.slider});
 

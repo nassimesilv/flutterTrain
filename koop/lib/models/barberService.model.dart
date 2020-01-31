@@ -1,28 +1,34 @@
-class BarberService {
-  int id;
+import 'package:flutter/material.dart';
+
+class BarberServiceModel {
+  String serviceId;
   String serviceName;
   String serviceType;
   int serviceDuration;
   int servicePrice;
   bool isSelected;
 
-  BarberService(this.id, this.serviceName, this.serviceType,
-      this.serviceDuration, this.servicePrice,
-      {this.isSelected = false});
+  BarberServiceModel(
+      {@required this.serviceId,
+      this.serviceName,
+      this.serviceType,
+      this.serviceDuration,
+      this.servicePrice,
+      this.isSelected = false});
 }
 
-List<BarberService> fakeBarberServices = [
-  BarberService(0, 'Degrade', 'Cheveux', 40, 10),
-  BarberService(1, 'Coupe au mulet', 'Cheveux', 20, 10),
-  BarberService(2, 'degrade coupe ongle', 'Cheveux', 10, 12),
-  BarberService(3, 'degrade degressif', 'Cheveux', 5, 4),
-  BarberService(4, 'Degrade degradant', 'Cheveux', 2, 2),
-  BarberService(5, 'Degrade a la Ahmed', 'Cheveux', 10, 50),
-  BarberService(6, 'Teinture', 'Cheveux', 10, 50),
-  BarberService(7, 'Lissage', 'Cheveux', 20, 70),
-  BarberService(8, 'Trim', 'Barbe', 10, 5),
-  BarberService(9, 'Krissi moustache', 'Barbe', 5, 4),
-  BarberService(10, 'Jug bouc', 'Barbe', 1, 1),
-  BarberService(11, 'epilation louche', 'Sourcils', 5, 4),
-  BarberService(12, 'Mete sourcil', 'Sourcils', 120, 20),
+List<BarberServiceModel> fakeBarberServiceModels = [
+  BarberServiceModel(serviceId: '0', serviceName: 'Degrade', serviceType: 'Cheveux', serviceDuration: 40, servicePrice: 10),
+  BarberServiceModel(serviceId: '1', serviceName: 'Coupe au mulet', serviceType: 'Cheveux', serviceDuration: 20, servicePrice: 10),
+  BarberServiceModel(serviceId: '2', serviceName: 'degrade coupe ongle', serviceType: 'Cheveux', serviceDuration: 10, servicePrice: 12),
+  BarberServiceModel(serviceId: '3', serviceName: 'degrade degressif', serviceType: 'Cheveux', serviceDuration: 5, servicePrice: 4),
+  BarberServiceModel(serviceId: '4', serviceName: 'Degrade degradant', serviceType: 'Cheveux', serviceDuration: 2, servicePrice: 2),
+  BarberServiceModel(serviceId: '5', serviceName: 'Degrade a la Ahmed', serviceType: 'Cheveux', serviceDuration: 10, servicePrice: 50),
+  BarberServiceModel(serviceId: '6', serviceName: 'Teinture', serviceType: 'Cheveux', serviceDuration: 10, servicePrice: 50),
+  BarberServiceModel(serviceId: '7', serviceName: 'Lissage', serviceType: 'Cheveux', serviceDuration: 20, servicePrice: 70),
+  BarberServiceModel(serviceId: '8', serviceName: 'Trim', serviceType: 'Barbe', serviceDuration: 10, servicePrice: 5),
+  BarberServiceModel(serviceId: '9', serviceName: 'Krissi moustache', serviceType: 'Barbe', serviceDuration: 5, servicePrice: 4),
+  BarberServiceModel(serviceId: '10', serviceName: 'Jug bouc', serviceType: 'Barbe', serviceDuration: 1, servicePrice: 1),
+  BarberServiceModel(serviceId: '11', serviceName: 'epilation louche', serviceType: 'Sourcils', serviceDuration: 5, servicePrice: 4),
+  BarberServiceModel(serviceId: '12', serviceName: 'Mete sourcil', serviceType: 'Sourcils',serviceDuration:  120, servicePrice: 20),
 ];

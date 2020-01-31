@@ -5,15 +5,15 @@ import 'package:koop/components/views/barberPicturesView.dart';
 import 'package:koop/components/views/barberServicesView.dart';
 import 'package:koop/components/views/commentsView.dart';
 import 'package:koop/models/barber.model.dart';
-import 'package:koop/models/barberCard.model.dart';
+import 'package:koop/services/auth.service.dart';
+import 'package:koop/utils/constants.dart';
 
-const double sliverBarExpandedHeight = 0.20;
 
 
 class BarberProfileScreen extends StatefulWidget {
   static String title = 'barber_profile_screen';
   final String barberId;
-  final BarberCardModel model;
+  final BarberModel model;
 
   BarberProfileScreen({this.barberId, this.model});
 
@@ -24,13 +24,12 @@ class BarberProfileScreen extends StatefulWidget {
 class _BarberProfileScreenState extends State<BarberProfileScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  Barber barber;
+  BarberModel barber;
 
   @override
   void initState() {
     this.barber = this.getBarber(widget.barberId);
-    this._tabController =
-        TabController(vsync: this, length: 4);
+    this._tabController = TabController(vsync: this, length: 4);
     super.initState();
   }
 
@@ -40,15 +39,15 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
     super.dispose();
   }
 
-  Barber getBarber(String barberId) {
+  BarberModel getBarber(String barberId) {
     // TODO request barber here is a fake barber
-    Barber barber = Barber(
+    BarberModel barber = BarberModel(
       barberId: 'barberId',
       name: 'Barber Shop',
-      rating: 4.3.toString(),
-      address: '30 Bis avenue du general sarrail, Chalons en chanmpagne',
-      img: Image.asset('images/fakeBarberProfileImage.jpg'),
-      distance: 2.3.toString(),
+      rate: 4.3,
+      address: Address(label: '30 Bis avenue du general sarrail, Chalons en chanmpagne'),
+      imagePath: 'images/fakeBarberProfileImage.jpg',
+      distance: 2.3,
     );
 
     return barber;
@@ -72,7 +71,7 @@ class _BarberProfileScreenState extends State<BarberProfileScreen>
               return <Widget>[
                 SliverAppBar(
                   expandedHeight: MediaQuery.of(context).size.height *
-                      sliverBarExpandedHeight,
+                      kBarberProfileAppBarExpandedHeightRatio,
                   floating: true,
                   pinned: false,
                   leading: Container(),

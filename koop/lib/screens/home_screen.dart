@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:koop/components/bars/bottomNavBar.dart';
 import 'package:koop/components/views/appointmentsView.dart';
 import 'package:koop/components/views/homeScrollView.dart';
@@ -22,7 +23,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Position _currentPosition;
-  List<BarberSlider> _barberSliderList;
+  List<BarberSliderModel> _barberSliderList = [];
+
 
   int _selectedIndex = 0;
   final PageController pageController = PageController();
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     // this._getCurrentLocation();
     this._getHomeSliders();
+    
   }
 
   @override
@@ -39,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
     pageController.dispose();
   }
-
+  
   void _getCurrentLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
@@ -54,9 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _getHomeSliders() {
+  void _getHomeSliders() async {
+    final barberList = await BarberSliderService().getHomeSliders(currentPosition: this._currentPosition);
     setState(() {
-      this._barberSliderList = BarberSliderService().getHomeSliders(this._currentPosition);
+      this._barberSliderList = barberList;
     });
   }
 

@@ -12,68 +12,89 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kCardBorderRadius),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            FavoriteSquareAvatar(),
-            SizedBox(
-              width: 10.0,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    child: Text('Barber Shop',
-                        textAlign: TextAlign.start, style: TextStyle()),
-                  ),
-                  SizedBox(height: 5.0),
-                  Container(
-                    width: double.infinity,
-                    child: Text('25/01/2020: 18h00 - 19h00',
-                        textAlign: TextAlign.start, style: TextStyle()),
-                  ),
-                  SizedBox(height: 5.0),
-                  Container(
-                    width: double.infinity,
-                    child: Text(
-                        '30 Bis avenue du general sarrail, chalons en champagne',
-                        textAlign: TextAlign.start,
-                        style: TextStyle()),
-                  ),
-                ],
+    return Container(
+      height: MediaQuery.of(context).size.height * kAppointmentCardHeightRatio,
+      child: Card(
+        elevation: 6.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kCardBorderRadius),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: FavoriteSquareAvatar(),
+                ),
               ),
-            ),
-            this.isComing
-                ? IconButton(
-                    icon: Icon(Icons.directions),
-                    onPressed: () {
-                      MapsLauncher.launchCoordinates(37.4220041, -122.0862462);
-                    },
-                  )
-                : IconButton(
-                    icon: Icon(Icons.rate_review),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CustomDialog(
-                          title: "Success",
-                          description:
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                          buttonText: "Okay",
-                        ),
-                      );
-                    },
-                  ),
-          ],
+              Expanded(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        width: double.infinity,
+                        child: Text('Barber Shop',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: TextStyle()),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        width: double.infinity,
+                        child: Text('25/01/2020: 18h00 - 19h00',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: TextStyle()),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Container(
+                        width: double.infinity,
+                        child: Text(
+                            '30 Bis avenue du general sarrail, chalons en champagne',
+                            overflow: TextOverflow.clip,
+                            textAlign: TextAlign.start,
+                            style: TextStyle()),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              this.isComing
+                  ? IconButton(
+                      icon: Icon(Icons.directions),
+                      onPressed: () {
+                        MapsLauncher.launchCoordinates(
+                            37.4220041, -122.0862462);
+                      },
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.rate_review),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => CustomDialog(
+                            title: "Success",
+                            description:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            buttonText: "Okay",
+                          ),
+                        );
+                      },
+                    ),
+            ],
+          ),
         ),
       ),
     );

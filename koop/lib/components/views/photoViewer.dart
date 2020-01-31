@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koop/models/galleryItem.model.dart';
+import 'package:koop/models/barberGallery.model.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -16,7 +16,7 @@ class PhotoViewer extends StatefulWidget {
   final Decoration backgroundDecoration;
   final int initialIndex;
   final PageController pageController;
-  final List<GalleryItem> galleryItems;
+  final List<BarberGalleryItemModel> galleryItems;
   final Axis scrollDirection;
 
   @override
@@ -85,16 +85,16 @@ class _PhotoViewerState extends State<PhotoViewer> {
   }
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
-    final GalleryItem item = widget.galleryItems[index];
+    final BarberGalleryItemModel item = widget.galleryItems[index];
     return PhotoViewGalleryPageOptions(
-      imageProvider: AssetImage(item.image),
-      heroAttributes: PhotoViewHeroAttributes(tag: item.id),
+      imageProvider: AssetImage(item.imagePath),
+      heroAttributes: PhotoViewHeroAttributes(tag: item.itemId),
     );
   }
 }
 
 void openPhotoViewer(BuildContext context, final int index,
-    List<GalleryItem> galleryItems, bool isVerticalGallery) {
+    List<BarberGalleryItemModel> galleryItems, bool isVerticalGallery) {
   Navigator.push(
     context,
     MaterialPageRoute(

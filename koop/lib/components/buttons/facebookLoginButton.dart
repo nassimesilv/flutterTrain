@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:koop/services/auth.service.dart';
+import 'package:provider/provider.dart';
 
 const TextStyle kButtonTextStyle = TextStyle(
   fontSize: 16.0,
@@ -34,8 +36,12 @@ class FacebookSignInButton extends StatelessWidget {
           ),
         ],
       ),
-      onPressed: () {
+      onPressed: () async {
         // TODO add fb auth function from button
+        final isSuccess = await Provider.of<AuthService>(context, listen: false).signInWithFacebook();
+        if (isSuccess == true) {
+          print('success');
+        }
       },
     );
   }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:koop/components/bars/searchBar.dart';
 import 'package:koop/components/cards/searchCard.dart';
-import 'package:koop/models/barberCard.model.dart';
-import 'package:koop/models/barberSlider.model.dart';
+import 'package:koop/models/barber.model.dart';
 import 'package:koop/services/barberSliders.service.dart';
+import 'package:koop/utils/constants.dart';
 
 class SearchView extends StatefulWidget {
   final Position currentPosition;
@@ -17,7 +17,7 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   List<SearchCard> searchCardList = [];
-  List<BarberCardModel> barberSliderList;
+  List<BarberModel> barberSliderList;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _SearchViewState extends State<SearchView> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.12,
+            expandedHeight: MediaQuery.of(context).size.height * kSearchBarExpendedHeightRatio,
             floating: true,
             pinned: false,
             flexibleSpace: FlexibleSpaceBar(
@@ -67,10 +67,10 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-List<SearchCard> getSearchCards(List<BarberCardModel> modelList) {
+List<SearchCard> getSearchCards(List<BarberModel> modelList) {
   List<SearchCard> searchCardList = [];
 
-  for(BarberCardModel model in modelList) {
+  for(BarberModel model in modelList) {
     searchCardList.add(
       SearchCard(model: model)
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:koop/models/barberCard.model.dart';
+import 'package:koop/models/barber.model.dart';
 import 'package:koop/screens/barber_profile_screen.dart';
 import 'package:koop/utils/constants.dart';
 import 'package:like_button/like_button.dart';
@@ -8,14 +8,14 @@ const double cardCircularBorderRadius = kCardBorderRadius;
 const double cardPadding = 10.0;
 
 class SearchCard extends StatelessWidget {
-  final BarberCardModel model;
+  final BarberModel model;
 
   SearchCard({this.model});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.17,
+      height: MediaQuery.of(context).size.height * kSearchCardHeightRatio,
       child: Card(
         elevation: 6.0,
         shape: RoundedRectangleBorder(
@@ -28,7 +28,7 @@ class SearchCard extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(model.imageUrl),
+                image: AssetImage(model.imagePath),
                 colorFilter:
                     ColorFilter.mode(Colors.black54, BlendMode.hardLight),
               ),
@@ -41,7 +41,7 @@ class SearchCard extends StatelessWidget {
   }
 }
 
-_columnWithContent(BuildContext context, BarberCardModel model) {
+_columnWithContent(BuildContext context, BarberModel model) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
@@ -67,7 +67,7 @@ _columnWithContent(BuildContext context, BarberCardModel model) {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height * 0.03,
+                  fontSize: MediaQuery.of(context).size.height * kSearchCardTitleSizeRatio,
                 ),
               ),
               Text(
@@ -76,7 +76,7 @@ _columnWithContent(BuildContext context, BarberCardModel model) {
                 overflow: TextOverflow.ellipsis,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                  fontSize: MediaQuery.of(context).size.height * kSearchCardSubTitleSizeRatio,
                   color: Colors.white,
                 ),
               ),
@@ -86,7 +86,7 @@ _columnWithContent(BuildContext context, BarberCardModel model) {
                 overflow: TextOverflow.ellipsis,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                  fontSize: MediaQuery.of(context).size.height * kSearchCardSubTitleSizeRatio,
                   color: Colors.white,
                 ),
               ),
@@ -95,7 +95,7 @@ _columnWithContent(BuildContext context, BarberCardModel model) {
         ),
       ),
       LikeButton(
-        size: MediaQuery.of(context).size.height * 0.04,
+        size: MediaQuery.of(context).size.height * kSearchCardIconSizeRatio,
         circleColor:
             CircleColor(start: Colors.pink, end: Theme.of(context).accentColor),
         bubblesColor: BubblesColor(
@@ -108,12 +108,12 @@ _columnWithContent(BuildContext context, BarberCardModel model) {
               ? Icon(
                   Icons.favorite,
                   color: Theme.of(context).accentColor,
-                  size: MediaQuery.of(context).size.height * 0.04,
+                  size: MediaQuery.of(context).size.height * kSearchCardIconSizeRatio,
                 )
               : Icon(
                   Icons.favorite_border,
                   color: Theme.of(context).accentColor,
-                  size: MediaQuery.of(context).size.height * 0.04,
+                  size: MediaQuery.of(context).size.height * kSearchCardIconSizeRatio,
                 );
         },
         likeCount: model.likeCount,
